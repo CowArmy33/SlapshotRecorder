@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
@@ -20,6 +20,7 @@
     <Reference Include="MelonLoader">
       <HintPath>G:\Program Files\Steam\steamapps\common\SlapshotRebound\MelonLoader\MelonLoader.dll</HintPath>
     </Reference>
+    <Reference Include="System.IO.Compression" />
     <Reference Include="UnhollowerBaseLib">
       <HintPath>G:\Program Files\Steam\steamapps\common\SlapshotRebound\MelonLoader\Managed\UnhollowerBaseLib.dll</HintPath>
     </Reference>

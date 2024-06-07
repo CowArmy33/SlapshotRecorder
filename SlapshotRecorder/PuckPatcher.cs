@@ -2,6 +2,8 @@
 using HarmonyLib;
 using MelonLoader;
 using System.IO.Compression;
+using System;
+using System.IO;
 using UnityEngine;
 using System.Numerics;
 
@@ -57,15 +59,15 @@ namespace SlapshotRecorder
             {
                 HandyTools.logMsg("Stopped writing out to file!");
                 HandyTools.logMsg("Zipping file...");
-
-                if (File.Exists("result.zip")) { File.Delete("results.zip"); }
-
-                try { ZipFile.CreateFromDirectory("Recordings", "result.zip"); }
-                catch
+                String date = HandyTools.normDateTime(DateTime.Now);
+                String archiveName = date + ".zip";
+                using (FileStream zipFileStream = new FileStream(archiveName, FileMode.Create))
+                using (ZipArchive zipArchive = new ZipArchive(zipFileStream, ZipArchiveMode.Create))
                 {
-                    HandyTools.logError("Something went wrong zipping! File not compressed!");
-                    return;
+                    // Add a directory and its files to the zip archive
+                    zipArchive.CreateEntryFromFile(HandyTools.recordFile, "replay.txt");
                 }
+
                 HandyTools.logMsg("File zipped and compressed! Deleting unzipped version...");
                 try { File.Delete("Recordings/log.txt"); }
                 catch
@@ -83,6 +85,7 @@ namespace SlapshotRecorder
     }
     public class HandyTools
     {
+        public static String recordFile = "Recordings/log.txt";
         public static int roundingNumber = 2;
         public static float minimumKeyframeDistance = .15f;
         public static float minimumKeyframeRotation = 1;
@@ -118,7 +121,7 @@ namespace SlapshotRecorder
         {
             try
             {
-                HandyTools.output = File.CreateText("Recordings/log.txt");
+                HandyTools.output = File.CreateText(recordFile);
                 HandyTools.logMsg(System.IO.Directory.GetCurrentDirectory());
             }
             catch { return false; }
@@ -173,6 +176,16 @@ namespace SlapshotRecorder
                 truth = true;
             }
             return truth;
+        }
+        public static String normDateTime(DateTime dt)
+        {
+            int[] values = { dt.Second, dt.Minute, dt.Hour, dt.Day, dt.Month };
+            String date = "";
+            foreach (int v in values)
+            {
+                if (v >= 10) date += v.ToString() + "_"; else date += "0" + v.ToString() + "_";
+            }
+            return date + dt.Year.ToString();
         }
 
         internal static void WriteLine(string v)
