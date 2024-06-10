@@ -1,35 +1,75 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-	  <LangVersion>10</LangVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C33B9F14-6389-4BFB-B6BE-5F2655529D99}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Replay_Mod</RootNamespace>
+    <AssemblyName>Replay Mod</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
-
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>G:\Program Files\Steam\steamapps\common\SlapshotRebound\MelonLoader\0Harmony.dll</HintPath>
+      <HintPath>..\..\..\..\steam\steamapps\common\SlapshotRebound\MelonLoader\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>G:\Program Files\Steam\steamapps\common\SlapshotRebound\MelonLoader\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\..\..\..\steam\steamapps\common\SlapshotRebound\MelonLoader\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Il2Cppmscorlib">
-      <HintPath>G:\Program Files\Steam\steamapps\common\SlapshotRebound\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
+      <HintPath>..\..\..\..\steam\steamapps\common\SlapshotRebound\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppNewtonsoft.Json, Version=13.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\steam\steamapps\common\SlapshotRebound\MelonLoader\Managed\Il2CppNewtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="MelonLoader">
-      <HintPath>G:\Program Files\Steam\steamapps\common\SlapshotRebound\MelonLoader\MelonLoader.dll</HintPath>
+      <HintPath>..\..\..\..\steam\steamapps\common\SlapshotRebound\MelonLoader\MelonLoader.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
     <Reference Include="UnhollowerBaseLib">
-      <HintPath>G:\Program Files\Steam\steamapps\common\SlapshotRebound\MelonLoader\Managed\UnhollowerBaseLib.dll</HintPath>
+      <HintPath>..\..\..\..\steam\steamapps\common\SlapshotRebound\MelonLoader\Managed\UnhollowerBaseLib.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>G:\Program Files\Steam\steamapps\common\SlapshotRebound\MelonLoader\Managed\UnityEngine.dll</HintPath>
+      <HintPath>..\..\..\..\steam\steamapps\common\SlapshotRebound\MelonLoader\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>G:\Program Files\Steam\steamapps\common\SlapshotRebound\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\..\..\..\steam\steamapps\common\SlapshotRebound\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
   </ItemGroup>
-
+  <ItemGroup>
+    <Compile Include="PuckPatcher.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,11 +1,12 @@
-﻿using SlapshotRecorder;
-using HarmonyLib;
-using MelonLoader;
-using System.IO.Compression;
-using System;
+﻿using System;
 using System.IO;
+using System.Collections.Generic;
+using System.IO.Compression;
 using UnityEngine;
 using System.Numerics;
+using MelonLoader;
+using HarmonyLib;
+using Il2CppNewtonsoft.Json;
 
 namespace SlapshotRecorder
 {
@@ -145,7 +146,7 @@ namespace SlapshotRecorder
         }
         public static String getInformation(GameObject gameObject)
         {
-            return getPosition(gameObject) + " " + getRotation(gameObject);
+            return " " + getPosition(gameObject) + " " + getRotation(gameObject);
         }
         public static bool checkChange(Transform current, TransformData prev)
         {
@@ -198,19 +199,19 @@ namespace SlapshotRecorder
         }
     }
 
-
-
-
     public class PlayerMemoriser
     {
         public static List<String> UUIDs = new List<String>();
         public static List<TransformData> lastRecoredPositon = new List<TransformData>();
         public static void logPlayer(Player player, float deltaTime, int gameTick)
         {
+            String playerUUID = player.UUID;
             int index = UUIDs.IndexOf(player.UUID);
+            if (player.UUID == "") {  playerUUID = "Offline_Player"; }
+            else { playerUUID = player.UUID; }
             if (index >= 0 && HandyTools.checkChange(player.body.gameObject.transform, lastRecoredPositon[index]))
             {
-                String printable = player.UUID + " " + gameTick + HandyTools.getInformation(player.body.gameObject);
+                String printable = playerUUID + " " + gameTick + HandyTools.getInformation(player.body.gameObject);
                 HandyTools.logMsg(printable);
                 HandyTools.WriteLine(printable);
                 lastRecoredPositon[index].updateFields(player.body.gameObject.transform);
